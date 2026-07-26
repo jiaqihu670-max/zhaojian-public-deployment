@@ -1,0 +1,10 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+archive/
+node_modules/
+*.zip
+*.command
+DEPLOYMENT_README.md
+CHECKSUMS.sha256
