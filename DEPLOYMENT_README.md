@@ -1,6 +1,6 @@
 # 照见实验场：公网部署包
 
-这是从 `/Users/jiaqi/Desktop/黑客松` 当前工作树生成的生产运行包，制作时间为 2026-07-26，基线提交为 `baeabc8`，并包含提交之后当前工作树中的未提交体验。它不是源码备份；原项目仍是唯一制作源。
+这是从 `/Users/jiaqi/Desktop/黑客松` 当前工作树生成的生产运行包，制作时间为 2026-07-26，基线提交为 `fab0d76`，并包含提交之后当前工作树中的未提交体验。它不是源码备份；原项目仍是唯一制作源。
 
 包内已经包含生产网页、MediaPipe 模型、WASM、二十八宿素材、老虎机素材和同源 Express API。部署后所有体验都由同一个 HTTPS 域名打开，摄像头权限可正常请求。
 
@@ -9,7 +9,7 @@
 1. 解压本包，把整个文件夹放进一个新的 Git 仓库并推送到 GitHub。
 2. Render：选择 `New > Blueprint` 或 Docker Web Service，指向这个仓库。健康检查填 `/api/health`。
 3. Railway：选择 `Deploy from GitHub Repo`。仓库内的 `railway.toml` 与 `Dockerfile` 会自动生效。
-4. 平台完成后，打开它提供的 `https://...` 地址。首页就是全部体验总入口。
+4. 平台完成后，打开它提供的 `https://...` 地址。根地址会直接进入「过去与现代」九幕主线。
 
 部署必须使用 Web Service 或 Docker 服务，不能只上传到纯静态空间。`/api/*`、单页路由回退和可选匿名留影都由随包服务处理。
 
@@ -20,7 +20,7 @@ docker build -t zhaojian-exhibition .
 docker run --rm -p 4180:4180 zhaojian-exhibition
 ```
 
-打开 `http://127.0.0.1:4180/`。公网服务器应由反向代理或云平台提供 HTTPS。
+打开 `http://127.0.0.1:4180/`，服务会跳转到 `/?destiny=1`。公网服务器应由反向代理或云平台提供 HTTPS。
 
 ## 不用 Docker 的 Node 部署
 
@@ -46,7 +46,7 @@ HOST=0.0.0.0 PORT=4180 npm start
 
 ## 完整入口
 
-- `/`：照见实验场总入口
+- `/`：自动进入「过去与现代」九幕主线
 - `/?zhaojian=1`：原「照见」
 - `/?oracle=1&installation=1`：「或然·未然」展场版
 - `/?rps=1`：动作预判石头剪刀布
@@ -54,7 +54,7 @@ HOST=0.0.0.0 PORT=4180 npm start
 - `/?constellations=1`：双星宿粒子试作
 - `/?star-particles=1`：二十八宿粒子大图
 - `/?stars=1`：二十八宿观测册
-- `/?destiny=1`：「过去与现代」九幕主线
+- `/?destiny=1`：「过去与现代」九幕主线，也是本部署的默认入口
 
 ## 上线检查
 

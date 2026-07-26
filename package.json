@@ -1,7 +1,7 @@
 {
   "name": "zhaojian-public-deployment",
   "private": true,
-  "version": "2026.7.26",
+  "version": "2026.7.26-2",
   "type": "module",
   "engines": {
     "node": ">=20"

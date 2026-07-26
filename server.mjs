@@ -1,8 +1,9 @@
-// ../照见实验场-公网部署包-20260726/_server-entry.ts
+// _server-entry.ts
 import "dotenv/config";
-import { resolve as resolve2 } from "node:path";
+import { join as join2, resolve as resolve2 } from "node:path";
+import express2 from "express";
 
-// server/app.ts
+// ../黑客松/server/app.ts
 import { randomBytes } from "node:crypto";
 import { mkdir, readdir, rm, unlink, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -10,7 +11,7 @@ import express from "express";
 import multer from "multer";
 import OpenAI from "openai";
 
-// src/oracle/traditionalContent.ts
+// ../黑客松/src/oracle/traditionalContent.ts
 var baseFigures = [
   ["cai-yuanpei", "\u8521\u5143\u57F9", "\u4E2D\u56FD", "https://commons.wikimedia.org/wiki/Category:Cai_Yuanpei", "\u5728\u65E2\u6709\u5236\u5EA6\u4E2D\u63A8\u52A8\u6559\u80B2\u4E0E\u5B66\u672F\u8F6C\u5411"],
   ["lin-huiyin", "\u6797\u5FBD\u56E0", "\u4E2D\u56FD", "https://commons.wikimedia.org/wiki/Category:Lin_Huiyin", "\u5728\u5EFA\u7B51\u3001\u5199\u4F5C\u4E0E\u6587\u5316\u4FDD\u5B58\u4E4B\u95F4\u6301\u7EED\u9009\u62E9"],
@@ -70,7 +71,7 @@ function validateReflectionText(text) {
   return forbiddenClaims.filter((claim) => text.includes(claim));
 }
 
-// server/schemas.ts
+// ../黑客松/server/schemas.ts
 import { z } from "zod";
 var reflectiveBranchSchema = z.object({
   premise: z.string().min(8).max(180),
@@ -235,7 +236,7 @@ var narrativeJsonSchema = {
   }
 };
 
-// src/data/starMansions.ts
+// ../黑客松/src/data/starMansions.ts
 var starMansions = [
   { id: "jiao-mu-jiao", name: "\u89D2\u6728\u86DF", animal: "\u86DF", element: "\u6728", quadrant: "\u4E1C\u65B9\u82CD\u9F99", order: 1, line: "\u9752\u89D2\u521D\u5F20\uFF0C\u4E07\u7269\u6709\u4E86\u5411\u4E0A\u7684\u8F6E\u5ED3\u3002", note: "\u4EE5\u8BD5\u63A2\u7684\u529B\u5EA6\uFF0C\u6253\u5F00\u7B2C\u4E00\u9053\u7F1D\u9699\u3002", color: "#39a882" },
   { id: "kang-jin-long", name: "\u4EA2\u91D1\u9F99", animal: "\u9F99", element: "\u91D1", quadrant: "\u4E1C\u65B9\u82CD\u9F99", order: 2, line: "\u9F99\u810A\u9AD8\u4EA2\uFF0C\u5B88\u4F4F\u4E0D\u5FC5\u89E3\u91CA\u7684\u5C3A\u5EA6\u3002", note: "\u62AC\u5934\uFF0C\u4F46\u4E0D\u628A\u950B\u8292\u4EA4\u7ED9\u55A7\u54D7\u3002", color: "#d7ad6f" },
@@ -267,7 +268,7 @@ var starMansions = [
   { id: "zhen-shui-yin", name: "\u8F78\u6C34\u8693", animal: "\u8693", element: "\u6C34", quadrant: "\u5357\u65B9\u6731\u96C0", order: 7, line: "\u8F78\u5BBF\u5982\u8F66\uFF0C\u6C34\u58F0\u628A\u8DEF\u5F84\u62C9\u957F\u3002", note: "\u5728\u8FC1\u79FB\u91CC\uFF0C\u4ECD\u8981\u8BB0\u4F4F\u81EA\u5DF1\u7684\u8F74\u5FC3\u3002", image: "/stars/zhen-shui-yin.jpg", color: "#477ab2" }
 ];
 
-// src/slot/slotContent.ts
+// ../黑客松/src/slot/slotContent.ts
 var verifiedArtwork = Object.freeze({
   "dou-mu-xie": "/stars/verified/dou-mu-xie.webp",
   "niu-jin-niu": "/stars/verified/niu-jin-niu.webp",
@@ -308,7 +309,7 @@ var slotSymbols = starMansions.map((mansion) => {
   };
 });
 
-// src/destiny/adapters/guardianMatch.ts
+// ../黑客松/src/destiny/adapters/guardianMatch.ts
 var mainStars = Object.freeze([
   { id: "ziwei", title: "\u7D2B\u5FAE", persona: "\u7384\u5195\u6570\u636E\u5E1D\u541B", nature: "\u4E3B\u5BFC\u3001\u5C0A\u4E25\u3001\u6574\u5408", shadow: "\u81EA\u5C0A\u3001\u8DDD\u79BB\u611F\u3001\u63A7\u5236\u6B32", quote: "\u7FA4\u661F\u4E0D\u4E89\u4F4D\uFF0C\u5E1D\u5EA7\u81EA\u6210\u5FC3\u3002", oracle: "\u5E1D\u661F\u9759\u9ED8\uFF0C\u5148\u5B9A\u4E2D\u8F74\uFF0C\u518D\u5B9A\u4E07\u8C61\u3002", colors: ["#c8a7ff", "#f6d365", "#5eead4", "#111827"] },
   { id: "tianji", title: "\u5929\u673A", persona: "\u9752\u7FBD\u673A\u5173\u7B56\u58EB", nature: "\u806A\u654F\u3001\u7B56\u5212\u3001\u53D8\u5316", shadow: "\u591A\u8651\u3001\u6447\u6446\u3001\u8FC7\u5EA6\u63A8\u6F14", quote: "\u4E00\u5FF5\u62E8\u8F6C\uFF0C\u4E07\u8DEF\u7686\u5F00\u3002", oracle: "\u5929\u673A\u5DF2\u52A8\uFF0C\u7B54\u6848\u85CF\u5728\u4E0B\u4E00\u6B21\u8F6C\u5411\u3002", colors: ["#56f39a", "#38bdf8", "#d1fae5", "#0f172a"] },
@@ -372,7 +373,7 @@ var mansionKeywords = Object.freeze({
   "zhen-shui-yin": ["\u7ED3\u675F", "\u5F52\u6765", "\u56DE\u58F0", "\u6536\u5C3E", "\u6C89\u6DC0", "\u5B8C\u6210"]
 });
 
-// server/deepseek.ts
+// ../黑客松/server/deepseek.ts
 var DeepSeekGatewayError = class extends Error {
   constructor(code) {
     super(code);
@@ -381,6 +382,7 @@ var DeepSeekGatewayError = class extends Error {
   }
 };
 function buildMessages(input) {
+  const exampleSourceId = JSON.stringify(input.sources[0].id);
   return [
     {
       role: "system",
@@ -395,7 +397,7 @@ function buildMessages(input) {
         `\u672C\u6B21\u552F\u4E00\u5141\u8BB8\u5F15\u7528\u7684 sourceIds \u662F\uFF1A${input.sources.map((source) => source.id).join(", ")}\u3002`,
         "\u65E0\u6CD5\u6839\u636E\u6750\u6599\u652F\u6301\u7684\u5185\u5BB9\u653E\u5165 unsupported\uFF0C\u4E0D\u5F97\u731C\u6D4B\u3002",
         "\u53EA\u8F93\u51FA\u4E0B\u5217 JSON \u5BF9\u8C61\uFF0C\u4E0D\u5F97\u52A0 Markdown \u6216\u5176\u4ED6\u5B57\u6BB5\uFF1A",
-        '{"statements":[{"id":"statement-1","text":"\u4F60\u2026\u2026","interpretationType":"cultural-metaphor | observable-summary | user-reflection","sourceIds":["source-id"],"reasoning":"\u8BF4\u660E\u5982\u4F55\u4ECE\u8282\u9009\u5F97\u51FA\u8FD9\u4E00\u6F14\u7ECE","caveat":"\u8BF4\u660E\u8FB9\u754C\u4E0E\u4E0D\u786E\u5B9A\u6027"}],"unsupported":[]}'
+        `{"statements":[{"id":"statement-1","text":"\u4F60\u2026\u2026","interpretationType":"cultural-metaphor | observable-summary | user-reflection","sourceIds":[${exampleSourceId}],"reasoning":"\u8BF4\u660E\u5982\u4F55\u4ECE\u8282\u9009\u5F97\u51FA\u8FD9\u4E00\u6F14\u7ECE","caveat":"\u8BF4\u660E\u8FB9\u754C\u4E0E\u4E0D\u786E\u5B9A\u6027"}],"unsupported":[]}`
       ].join("\n")
     },
     {
@@ -470,12 +472,13 @@ async function sendDeepSeekRequest(messages, options) {
   const requestBody = {
     model: options.model ?? "deepseek-v4-flash",
     messages,
+    thinking: { type: "disabled" },
     temperature: 0.2,
     max_tokens: 1600
   };
   const sendAttempt = async () => {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 12e3);
+    const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 25e3);
     const send = (useJsonMode) => fetchImpl(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
@@ -500,7 +503,8 @@ async function sendDeepSeekRequest(messages, options) {
       let envelope;
       try {
         envelope = await response.json();
-      } catch {
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") throw error;
         throw new DeepSeekGatewayError("invalid-json");
       }
       const content = envelope.choices?.[0]?.message?.content;
@@ -618,7 +622,7 @@ async function requestGuardianDialogue(rawInput, options) {
   }
 }
 
-// server/localCuration.ts
+// ../黑客松/server/localCuration.ts
 function visualSeed(summary) {
   return Math.abs(Math.round(
     summary.faceWidthRatio * 101 + summary.faceHeightRatio * 211 + summary.landmarkCount * 7 + summary.particleLuminance * 13
@@ -685,7 +689,7 @@ function modelTextIsAllowed(value) {
   return validateReflectionText(text).length === 0 && !/(种族|族裔|性别|疾病|健康|吸引力|人格类型|身份识别)/.test(text);
 }
 
-// server/app.ts
+// ../黑客松/server/app.ts
 var upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 15e5, files: 1, fields: 3 },
@@ -888,11 +892,11 @@ function createOracleServer(options) {
     return response.status(204).end();
   });
   if (options.distDir) {
-    const distDir = resolve(options.distDir);
-    app2.use(express.static(distDir, { index: false }));
+    const distDir2 = resolve(options.distDir);
+    app2.use(express.static(distDir2, { index: false }));
     app2.use((request, response, next) => {
       if (request.method !== "GET" || request.path.startsWith("/api/")) return next();
-      return response.sendFile(join(distDir, "index.html"));
+      return response.sendFile(join(distDir2, "index.html"));
     });
   }
   app2.use((error, _request, response, _next) => {
@@ -902,9 +906,10 @@ function createOracleServer(options) {
   return app2;
 }
 
-// ../照见实验场-公网部署包-20260726/_server-entry.ts
+// _server-entry.ts
 var port = Number(process.env.PORT ?? 4180);
 var host = process.env.HOST ?? "0.0.0.0";
+var distDir = resolve2("dist");
 var app = createOracleServer({
   archiveDir: process.env.ARCHIVE_DIR ?? resolve2("archive"),
   exhibitionId: process.env.EXHIBITION_ID ?? "zhaojian-public",
@@ -912,10 +917,18 @@ var app = createOracleServer({
   openaiModel: process.env.OPENAI_MODEL,
   deepSeekKey: process.env.DEEPSEEK_API_KEY,
   deepSeekModel: process.env.DEEPSEEK_MODEL,
-  deepSeekBaseUrl: process.env.DEEPSEEK_BASE_URL,
-  distDir: resolve2("dist")
+  deepSeekBaseUrl: process.env.DEEPSEEK_BASE_URL
+});
+app.get("/", (request, response, next) => {
+  if (Object.keys(request.query).length > 0) return next();
+  return response.redirect(302, "/?destiny=1");
+});
+app.use(express2.static(distDir, { index: false }));
+app.use((request, response, next) => {
+  if (request.method !== "GET" || request.path.startsWith("/api/")) return next();
+  return response.sendFile(join2(distDir, "index.html"));
 });
 app.listen(port, host, () => {
-  process.stdout.write(`\u7167\u89C1\u5B9E\u9A8C\u573A\u5DF2\u542F\u52A8\uFF1Ahttp://${host}:${port}/
+  process.stdout.write(`\u7167\u89C1\u5B9E\u9A8C\u573A\u5DF2\u542F\u52A8\uFF1Ahttp://${host}:${port}/?destiny=1
 `);
 });
