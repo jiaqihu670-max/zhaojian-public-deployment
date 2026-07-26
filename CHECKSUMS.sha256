@@ -1,9 +1,9 @@
 0a4316bc469be5681b50af1e519c5bfbc11919e7850aa53b2bb80a09bb366af4  ./.dockerignore
 057196bc256ecb9825017824c1d3079f3a62c2bc70073d88e9cd653756dd85f6  ./.env.example
 a2a05a893052a84aa244fd8ef26ddf946b1479ee8dc33df28fa3413aac962649  ./.gitignore
-4d84470720690872190c33f92c3e014581cffb2cac9064167a053646e038be48  ./DEPLOYMENT_README.md
+695e80f5108149ad63aad740ac9fd8241ce39b4589463c3fbb3063a7da528618  ./DEPLOYMENT_README.md
 72c16c911493aa6bf595d0890cf74ddfec12eb977f213ef37497cadd1ccd7f7f  ./Dockerfile
-209d8c319502a0fdb48f8982f63f22cd6089a90fab093e993271777986ae88c3  ./README.md
+2d775d104dc13dd81050adaeed9816f08ad97336a3c26c7bfc7956859cc503fe  ./README.md
 f1e5f2a4763a83503d2590aba872cd245a5ad201fefe1d1e922cbcd3c91af897  ./THIRD_PARTY_NOTICES.md
 2273b9a3579c60555e577c9edeb59fa688574249131e556a831566f92219d0ac  ./dist/assets/birthChart-Ci5nxhdr.js
 9b5be2ecc69ea085678724fbefd0ac8a31f8c5edc9515ea1ce56d0f010fb3cee  ./dist/assets/index-BCH-ek3h.js
@@ -14,7 +14,7 @@ f1e5f2a4763a83503d2590aba872cd245a5ad201fefe1d1e922cbcd3c91af897  ./THIRD_PARTY_
 29f7ae295a85d9139afbda2d192a315f4242c2d939f10e912cae8a53107691fe  ./dist/assets/vision_bundle-qr10_K4S.js
 dd50b0bf25ece316130cbbad1ebb22fb4c37bffba280d12a210bdce10936ba5f  ./dist/constellations/jing-mu-an.jpg
 de7279c74f27e96d8041c0a96af6f851dae814a2ea7f40c90e2f256ec39d6820  ./dist/constellations/wei-yue-yan.jpg
-791f043ed6c4eda6ad2144b222b8eaa7547f719014f18022aba97c19137a7fc6  ./dist/index.html
+7ea801f542b42fb02fb079ff207809cdb30b0874d00048305227fe49a5f09a8e  ./dist/index.html
 64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff  ./dist/models/face_landmarker.task
 97952348cf6a6a4915c2ea1496b4b37ebabc50cbbf80571435643c455f2b0482  ./dist/models/gesture_recognizer.task
 191ac9529ae506ee0beefa6b2c945a172dab9d07d1e802a290a4e4038226658b  ./dist/models/selfie_segmenter.tflite

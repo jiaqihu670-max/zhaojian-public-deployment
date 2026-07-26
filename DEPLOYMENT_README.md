@@ -4,14 +4,25 @@
 
 包内已经包含生产网页、MediaPipe 模型、WASM、二十八宿素材、老虎机素材和同源 Express API。部署后所有体验都由同一个 HTTPS 域名打开，摄像头权限可正常请求。
 
-## 最快部署：Render 或 Railway
+## 中国网络快速入口：腾讯 EdgeOne Pages
+
+EdgeOne Pages 可以直接连接本包的 GitHub 仓库，不需要重新构建：
+
+1. 在 EdgeOne Pages 新建项目并导入 GitHub 仓库。
+2. 框架选择 `Other`，构建命令留空，输出目录填写 `dist`。
+3. 部署完成后先打开平台提供的临时域名；根地址会由 `dist/index.html` 直接进入 `/?destiny=1`。
+4. 临时域名确认可用后，再在 EdgeOne 添加 `www.yhyw.com`，按控制台给出的 CNAME 修改 GoDaddy 的 `www` 记录。
+
+这一模式包含九幕前端、摄像头、MediaPipe 模型、WASM 和全部视觉素材；没有配置服务端时，文本步骤会使用浏览器内的本地策展降级。匿名云端留影和 `/api/*` 模型接口需要 Node 服务，纯静态 Pages 不提供这两项；浏览器下载海报不受影响。
+
+## 完整服务部署：Render 或 Railway
 
 1. 解压本包，把整个文件夹放进一个新的 Git 仓库并推送到 GitHub。
 2. Render：选择 `New > Blueprint` 或 Docker Web Service，指向这个仓库。健康检查填 `/api/health`。
 3. Railway：选择 `Deploy from GitHub Repo`。仓库内的 `railway.toml` 与 `Dockerfile` 会自动生效。
 4. 平台完成后，打开它提供的 `https://...` 地址。根地址会直接进入「过去与现代」九幕主线。
 
-部署必须使用 Web Service 或 Docker 服务，不能只上传到纯静态空间。`/api/*`、单页路由回退和可选匿名留影都由随包服务处理。
+需要 `/api/*`、模型请求或匿名云端留影时，必须使用 Web Service 或 Docker 服务。只需要完整九幕交互和本地策展降级时，可使用上面的 EdgeOne Pages 静态部署。
 
 ## Docker 部署
 
